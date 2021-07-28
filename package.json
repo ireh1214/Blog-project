@@ -4,11 +4,13 @@
   "description": "공부를 위해 블로그 프로젝트를 개설했습니다.",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^5.13.3"
   },
@@ -18,7 +20,7 @@
     "@babel/node": "^7.14.7",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.8",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.1.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12"
   },
