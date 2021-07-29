@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700;900&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+  text-decoration: none !important;
+}
+
+#main-footer {
+  font-weight: 100;
+  background: #eee;
+  color: #333;
+  font-size: 13px;
+  line-height: 4;
+}
+
+#main-footer p {
+  margin-top: 10px;
+}
+
+#page-header {
+  height: 340px;
+  background: url("../assets/img/header-bg-300.png") no-repeat 50.5%;
+  background-attachment: fixed;
+  background-position-y: 10%;
+  border-bottom: 1px #eee solid;
+}
