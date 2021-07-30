@@ -11,6 +11,9 @@ import {
   USER_LOADING_FAILURE,
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
 } from "../types";
 
 // initialState. 가장 초기값을 의미한다.
@@ -32,6 +35,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REGISTER_REQUEST:
     case LOGOUT_REQUEST:
     case LOGIN_REQUEST:
       return {
@@ -39,6 +43,7 @@ const authReducer = (state = initialState, action) => {
         errorMsg: "",
         isLoading: true,
       };
+    case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return {
@@ -51,6 +56,7 @@ const authReducer = (state = initialState, action) => {
         errorMsg: "",
       };
 
+    case REGISTER_FAILURE:
     case LOGIN_FAILURE:
     case LOGOUT_FAILURE:
       localStorage.removeItem("token");
