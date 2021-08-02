@@ -15,6 +15,7 @@ import RegisterModal from "./auth/RegisterModal";
 import { LOGOUT_REQUEST } from "../redux/types";
 import { useSelector, useDispatch } from "react-redux";
 import PetsIcon from "@material-ui/icons/Pets";
+import BrushIcon from '@material-ui/icons/Brush';
 
 const AppNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,10 +64,10 @@ const AppNavBar = () => {
           <Form className="col mt-2">
             <Link
               to="/post"
-              className="btn btn-success block text-white px-3"
+              className="btn block px-3 WriteBtn"
               onClick={addPostClick}
             >
-              Add Post
+          <BrushIcon className="BrushBtn" />
             </Link>
           </Form>
         ) : (
@@ -78,11 +79,9 @@ const AppNavBar = () => {
         <Form className="col mt-2">
           {user && user.name ? (
             <Link to={`/user/${user.name}/profile`}>
-              <Button outline color="dark" className="px-3" block>
-                <strong>
+                <strong className="WelcomeBtn">
                   {user ? `${randomWelcome} ${user.name} 님!` : ""}
                 </strong>
-              </Button>
             </Link>
           ) : (
             <Button outline color="dark" className="px-3" block>
@@ -92,13 +91,13 @@ const AppNavBar = () => {
         </Form>
       </NavItem>
       <NavItem>
-        <Form className="col">
+        {/* <Form className="col">
           <Link onClick={onLogout} to="#">
             <Button outline className="mt-2" block>
               Logout
             </Button>
           </Link>
-        </Form>
+        </Form> */}
       </NavItem>
     </Fragment>
   );
