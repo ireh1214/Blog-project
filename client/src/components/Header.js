@@ -1,5 +1,6 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
+
 
 const Header = () => {
   return (

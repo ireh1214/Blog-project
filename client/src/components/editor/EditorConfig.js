@@ -2,8 +2,6 @@ import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
 import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold";
 import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic";
-import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline";
-import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough";
 import Code from "@ckeditor/ckeditor5-basic-styles/src/code";
 import BlockQuote from "@ckeditor/ckeditor5-block-quote/src/blockquote";
 import Link from "@ckeditor/ckeditor5-link/src/link";
@@ -25,6 +23,8 @@ import Indent from "@ckeditor/ckeditor5-indent/src/indent";
 import IndentBlock from "@ckeditor/ckeditor5-indent/src/indentblock";
 import FindAndReplace from "@ckeditor/ckeditor5-find-and-replace/src/findandreplace";
 import HorizontalLine from "@ckeditor/ckeditor5-horizontal-line/src/horizontalline";
+import TodoList from "@ckeditor/ckeditor5-list/src/todolist";
+import SourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
 
 /* import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter"; */
 
@@ -37,6 +37,7 @@ dotenv.config();
 export const editorConfiguration = {
   plugins: [
     Essentials,
+    TodoList,
     HorizontalLine,
     FindAndReplace,
     Paragraph,
@@ -46,8 +47,6 @@ export const editorConfiguration = {
     Heading,
     Indent,
     IndentBlock,
-    Underline,
-    Strikethrough,
     BlockQuote,
     Font,
     Alignment,
@@ -64,27 +63,26 @@ export const editorConfiguration = {
     Table,
     TableToolbar,
     TextTransformation,
+    SourceEditing,
   ],
 
   toolbar: [
-    "heading",
-    "|",
-    "bold",
-    "italic",
-    "underline",
-    "strikethrough",
-    "code",
-    "HorizontalLine",
+    "fontfamily",
     "|",
     "fontSize",
     "fontColor",
     "fontBackgroundColor",
     "|",
+    "bold",
+    "italic",
+    "code",
+    "HorizontalLine",
+    "|",
     "alignment",
     "outdent",
     "indent",
     "bulletedList",
-    "numberedList",
+    "todoList",
     "blockQuote",
     "|",
     "link",
@@ -95,93 +93,32 @@ export const editorConfiguration = {
     "|",
     "undo",
     "redo",
+    "sourceEditing",
   ],
 
-  heading: {
+  fontFamily: {
     options: [
-      {
-        model: "paragraph",
-
-        view: "p",
-
-        title: "본문",
-
-        class: "ck-heading_paragraph",
-      },
-
-      {
-        model: "heading1",
-
-        view: "h1",
-
-        title: "헤더1",
-
-        class: "ck-heading_heading1",
-      },
-
-      {
-        model: "heading2",
-
-        view: "h2",
-
-        title: "헤더2",
-
-        class: "ck-heading_heading2",
-      },
-
-      {
-        model: "heading3",
-
-        view: "h3",
-
-        title: "헤더3",
-
-        class: "ck-heading_heading3",
-      },
+      "Noto Sans KR",
+      "BlackHanSans",
+      "G마켓 산스",
+      "빛의계승자",
+      "코트라고딕체",
+      "쿠키런",
+      "",
+      "Christian Heedlay",
+      "GettingBetter",
+      "Moonrising",
+      "Rodrigues",
+      "BadSignal",
+      "Magnificent",
     ],
+    suppertAllValues: true,
   },
 
   fontSize: {
     options: [
-      9,
-
-      10,
-
-      11,
-
-      12,
-
-      13,
-
-      14,
-
-      15,
-
-      16,
-
-      17,
-
-      18,
-
-      19,
-
-      20,
-
-      21,
-
-      23,
-
-      25,
-
-      27,
-
-      29,
-
-      31,
-
-      33,
-
-      35,
+      9, 10, 12, 14, 16, 18, 20, 21, 24, 29, 31, 33, 35, 36, 48, 60, 65, 72, 80,
+      90, 100, 150, 200,
     ],
   },
 
