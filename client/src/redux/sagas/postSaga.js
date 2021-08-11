@@ -5,23 +5,38 @@ import {
   POSTS_LOADING_FAILURE,
   POSTS_LOADING_SUCCESS,
   POSTS_LOADING_REQUEST,
-  POST_UPLOADING_REQUEST,
-  POST_UPLOADING_FAILURE,
   POST_UPLOADING_SUCCESS,
+  POST_UPLOADING_FAILURE,
+  POST_UPLOADING_REQUEST,
+  POST_DETAIL_LOADING_SUCCESS,
   POST_DETAIL_LOADING_FAILURE,
   POST_DETAIL_LOADING_REQUEST,
-  POST_DETAIL_LOADING_SUCCESS,
+  // POST_DELETE_SUCCESS,
+  // POST_DELETE_FAILURE,
+  // POST_DELETE_REQUEST,
+  // POST_EDIT_LOADING_SUCCESS,
+  // POST_EDIT_LOADING_FAILURE,
+  // POST_EDIT_UPLOADING_SUCCESS,
+  // POST_EDIT_UPLOADING_FAILURE,
+  // POST_EDIT_UPLOADING_REQUEST,
+  // POST_EDIT_LOADING_REQUEST,
+  // CATEGORY_FIND_FAILURE,
+  // CATEGORY_FIND_SUCCESS,
+  // CATEGORY_FIND_REQUEST,
+  // SEARCH_SUCCESS,
+  // SEARCH_FAILURE,
+  // SEARCH_REQUEST,
 } from "../types";
 
 // All Posts load
 
-const loadPostAPI = () => {
-  return axios.get("/api/post/");
+const loadPostAPI = (payload) => {
+  return axios.get(`/api/post/skip/${payload}`);
 };
 
-function* loadPosts() {
+function* loadPosts(action) {
   try {
-    const result = yield call(loadPostAPI);
+    const result = yield call(loadPostAPI, action.payload);
     console.log(result, "loadPosts");
     yield put({
       type: POSTS_LOADING_SUCCESS,
@@ -32,14 +47,12 @@ function* loadPosts() {
       type: POSTS_LOADING_FAILURE,
       payload: e,
     });
-    yield push("/");
   }
 }
 
 function* watchLoadPosts() {
   yield takeEvery(POSTS_LOADING_REQUEST, loadPosts);
 }
-
 
 // Post Upload
 
@@ -71,16 +84,13 @@ function* uploadPosts(action) {
       type: POST_UPLOADING_FAILURE,
       payload: e,
     });
-    yield push("/");
+    yield put(push("/"));
   }
 }
 
 function* watchuploadPosts() {
   yield takeEvery(POST_UPLOADING_REQUEST, uploadPosts);
 }
-
-
-
 
 // Post Detail
 const loadPostDetailAPI = (payload) => {
@@ -90,6 +100,7 @@ const loadPostDetailAPI = (payload) => {
 
 function* loadPostDetail(action) {
   try {
+    console.log(action);
     const result = yield call(loadPostDetailAPI, action.payload);
     console.log(result, "post_detail_saga_data");
     yield put({
@@ -109,18 +120,10 @@ function* watchloadPostDetail() {
   yield takeEvery(POST_DETAIL_LOADING_REQUEST, loadPostDetail);
 }
 
-
-
-
 export default function* postSaga() {
   yield all([
     fork(watchLoadPosts),
       fork(watchuploadPosts),
       fork(watchloadPostDetail),
-    //   fork(watchDeletePost),
-    //   fork(watchPostEditLoad),
-    //   fork(watchPostEditUpload),
-    //   fork(watchCategoryFind),
-    //   fork(watchSearchResult),
   ]);
 }
