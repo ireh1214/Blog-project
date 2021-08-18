@@ -17,8 +17,7 @@ const PostSchema = new mongoose.Schema({
   },
   fileUrl: {
     type: String,
-    default:
-      "https://blogpfthumb-phinf.pstatic.net/MjAyMDAzMDlfMjc5/MDAxNTgzNzMyOTU3Mjcz.T4xDyWcK4pGh_F_Io-zCwa6Serbq4skNyGk-T1HXRWMg.WU0pXwWM7WK1XtHMpBhlGxmyFPGwf0k8A1UF_5rr3sIg.PNG.wolfy1214/2233.png?type=w161",
+      default: "https://source.unsplash.com/random/301x201",
   },
   date: {
     type: String,
