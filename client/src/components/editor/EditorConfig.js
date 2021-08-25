@@ -1,4 +1,5 @@
 import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
+
 import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold";
 import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic";
@@ -14,7 +15,6 @@ import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
 import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
 import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize";
-import List from "@ckeditor/ckeditor5-list/src/list";
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 import Table from "@ckeditor/ckeditor5-table/src/table";
 import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar";
@@ -26,7 +26,6 @@ import HorizontalLine from "@ckeditor/ckeditor5-horizontal-line/src/horizontalli
 import TodoList from "@ckeditor/ckeditor5-list/src/todolist";
 import SourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
 
-/* import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter"; */
 
 import SimpleUploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
 import "@ckeditor/ckeditor5-build-classic/build/translations/ko";
@@ -50,7 +49,6 @@ export const editorConfiguration = {
     BlockQuote,
     Font,
     Alignment,
-    List,
     Link,
     MediaEmbed,
     PasteFromOffice,
@@ -117,8 +115,7 @@ export const editorConfiguration = {
 
   fontSize: {
     options: [
-      9, 10, 12, 14, 16, 18, 20, 21, 24, 29, 31, 33, 35, 36, 48, 60, 65, 72, 80,
-      90, 100, 150, 200,
+      9, 10, 12, 14, 16, 18, 20, 21, 24, 29, 31, 33, 35, 36, 48, 60, 65, 72,
     ],
   },
 
@@ -186,3 +183,5 @@ export const ReadOnly_Configuration = {
 
   heading: {},
 };
+
+

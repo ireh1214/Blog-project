@@ -1,0 +1,68 @@
+#main-body{
+      width:800px;
+    font-size:14px;
+    color:#333;
+}
+
+button.btn{
+    background:#1aa7ec;
+    border:none;
+    font-size:12px;
+    color:white;
+    margin:0 8px;
+}
+
+a.btn-block{
+     background:#1aa7ec;
+    border:none;
+    font-size:12px;
+    color:white;
+}
+
+#postTop{
+    display:flex;
+    flex-decoration:row;
+    align-item: center;
+    justify-content:space-between;
+}
+
+#postTop div{
+    font-size:18px;
+    line-height:1.7;
+}
+
+#postTop div:nth-child(1){
+    color:black;
+}
+
+#postTop div:nth-child(2){
+    font-size:14px;
+    line-height:2;
+}
+
+.TopButton{
+    border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      padding:8px;
+}
+
+// 오른쪽에 날짜 코멘트 조회수 잇는거
+.rightCont{
+    color:#666;
+    width:100%;
+    padding: 8px 0 24px;
+    font-size:12px;
+    text-align:right;
+}
+.topCont{
+    padding:20px 0 8px 0;
+    display:flex;
+    width:800px;
+    position:relative;
+    left:710px;
+}
+
+.topCont .topContJr{
+color:#1071f8;
+width:80px;
+}

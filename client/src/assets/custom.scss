@@ -214,6 +214,15 @@
   border-radius:100px;
 }
 
+.my_category {
+  &:last-child {
+    margin-bottom: 0.25rem;
+  }
+}
+
+textarea {
+  resize: none;
+}
 
 @media all and (min-width: 320px) and (max-width: 768px) {
 

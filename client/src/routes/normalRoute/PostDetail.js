@@ -6,9 +6,10 @@ import {
   POST_DELETE_REQUEST,
   USER_LOADING_REQUEST,
 } from "../../redux/types";
-import { Button, Row, Col } from "reactstrap";
+import { Button, Row, Col, Container } from "reactstrap";
 import { Link } from "react-router-dom";
-import CKEditor from "@ckeditor/ckeditor5-react";
+import Comments from "../../components/comments/Comments";
+
 import GrowingSpinner from "../../components/spinner/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,9 +17,11 @@ import {
   faCommentDots,
   faMouse,
 } from "@fortawesome/free-solid-svg-icons";
-import BallonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
-import BalloonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
+
+import { CKEditor } from "@ckeditor/ckeditor5-react"; // CKEditor 설정 변경됨
+import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
+import '../../assets/postDetail.scss';
 
 const PostDetail = (req) => {
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ const PostDetail = (req) => {
     (state) => state.post
   );
   const { userId, userName } = useSelector((state) => state.auth);
+  const { comments } = useSelector((state) => state.comment);
+
   console.log(req);
   useEffect(() => {
     dispatch({
@@ -36,7 +41,8 @@ const PostDetail = (req) => {
       type: USER_LOADING_REQUEST,
       payload: localStorage.getItem("token"),
     });
-  });
+  }, [dispatch, req.match.params.id]);
+
   const onDeleteClick = () => {
     dispatch({
       type: POST_DELETE_REQUEST,
@@ -46,32 +52,27 @@ const PostDetail = (req) => {
       },
     });
   };
+
   const EditButton = (
-    <div>
-      <Row className="d-flex justify-content-center pb-3">
-        <Col className="col-md-3 mr-md-3">
-          <Link to="/" className="btn btn-primary btn-block">
-            Home
-          </Link>
-        </Col>
-        <Col className="col-md-3 mr-md-3">
+    <div className="topCont">
+      <Row>
+        <Col className="topContJr">
           <Link
-            to={`/post/${req.match.params.id}/edit`}
-            className="btn btn-success btn-block"
-          >
-            Edit Post
+            to={`/post/${req.match.params.id}/edit`}>
+            수정할래
           </Link>
         </Col>
-        <Col className="col-md-3">
-          <Button className="btn-block btn-danger" onClick={onDeleteClick}>
-            Delete
-          </Button>
+        <Col className="topContJr">
+          <span onClick={onDeleteClick}>
+            삭제할래
+          </span>
         </Col>
       </Row>
     </div>
   );
+
   const HomeButton = (
-    <div>
+    <Fragment>
       <Row className="d-flex justify-content-center pb-3">
         <Col className="col-sm-12 com-md-3">
           <Link to="/" className="btn btn-primary btn-block">
@@ -79,59 +80,98 @@ const PostDetail = (req) => {
           </Link>
         </Col>
       </Row>
-    </div>
+    </Fragment>
   );
+
   const Body = (
-    <div>
+    <>
       {userId === creatorId ? EditButton : HomeButton}
-      <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
+      <Row className="TopButton">
         {(() => {
           if (postDetail && postDetail.creator) {
             return (
-              <div>
-                <div className="font-weight-bold text-big">
+              <div id="postTop">
+                <div>
                   <span className="mr-3">
-                    <Button color="info">
+                    <Button>
                       {postDetail.category.categoryName}
                     </Button>
                   </span>
                   {postDetail.title}
                 </div>
-                <div className="align-self-end">{postDetail.creator.name}</div>
+                <div className="creator">{postDetail.creator.name}</div>
               </div>
             );
           }
         })()}
       </Row>
       {postDetail && postDetail.comments ? (
-        <div>
-          <div className="d-flex justify-content-end align-items-baseline small">
+        <Fragment>
+          <div className="rightCont">
             <FontAwesomeIcon icon={faPencilAlt} />
             &nbsp;
             <span> {postDetail.date}</span>
+            &nbsp;&nbsp;
+            |
             &nbsp;&nbsp;
             <FontAwesomeIcon icon={faCommentDots} />
             &nbsp;
             <span>{postDetail.comments.length}</span>
             &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faMouse} />
+            <FontAwesomeIcon icon={faMouse} /> &nbsp;
             <span>{postDetail.views}</span>
           </div>
-          <Row className="mb-3">
-            <CKEditor
-              editor={BalloonEditor}
-              data={postDetail.contents}
-              config={editorConfiguration}
-              disabled="true"
+          <Row className="m-3 pb-3 pt-3">
+        <CKEditor
+            editor={ClassicEditor}
+            data={postDetail.contents}
+            config={editorConfiguration}
+            disabled="true"
             />
           </Row>
-        </div>
+          <Row>
+            <Container className="mb-3 border border-blue rounded">
+              {Array.isArray(comments)
+                ? comments.map(
+                    ({ contents, creator, date, _id, creatorName }) => (
+                      <div key={_id}>
+                        <Row className="justify-content-between p-2">
+                          <div className="font-weight-bold">
+                            {creatorName ? creatorName : creator}
+                          </div>
+                          <div className="text-small">
+                            <span className="font-weight-bold">
+                              {date.split(" ")[0]}
+                            </span>
+                            <span className="font-weight-light">
+                              {" "}
+                              {date.split(" ")[1]}
+                            </span>
+                          </div>
+                        </Row>
+                        <Row className="p-2">
+                          <div>{contents}</div>
+                        </Row>
+                        <hr />
+                      </div>
+                    )
+                  )
+                : "Creator"}
+              <Comments
+                id={req.match.params.id}
+                userId={userId}
+                userName={userName}
+              />
+            </Container>
+          </Row>
+        </Fragment>
       ) : (
         <h1>hi</h1>
       )}
-    </div>
+    </>
   );
 
+  console.log(comments, "Comments");
   return (
     <div>
       <Helmet title={`Post | ${title}`} />
@@ -139,4 +179,5 @@ const PostDetail = (req) => {
     </div>
   );
 };
+
 export default PostDetail;
