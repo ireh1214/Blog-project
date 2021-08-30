@@ -28,6 +28,11 @@ const AppNavBar = () => {
 
   // eslint-disable-next-line
   const onLogout = useCallback(() => {
+    swal({
+ title: "로그아웃 되었습니다!",
+  icon: "success",
+ timer: 3000,
+});
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -50,7 +55,8 @@ const AppNavBar = () => {
     "편안한 하루 되세요",
     "가끔은 쉬면서 일하세요",
     "오늘은 어떤 글을 쓰실 건가요?",
-    "님캐 제꺼예요ㅎㅎ",
+    // "님캐 제꺼예요ㅎㅎ",
+    "오늘은 뭔가 영감이 떠오를 것 같죠?",
     "Welcome, ",
     "요즘 기분은 어떠세요?",
   ];
@@ -91,13 +97,13 @@ const AppNavBar = () => {
         </Form>
       </NavItem>
       <NavItem>
-        {/* <Form className="col">
+        <Form className="col logoutBtnForm">
           <Link onClick={onLogout} to="#">
-            <Button outline className="mt-2" block>
+            <Button className="logoutBtn">
               Logout
             </Button>
           </Link>
-        </Form> */}
+        </Form>
       </NavItem>
     </Fragment>
   );
@@ -114,7 +120,7 @@ const AppNavBar = () => {
   );
 
   return (
-    <Fragment>
+    <div id="AppNavBar">
       <Navbar color="#fff" dark expand="lg" className="sticky-top">
         <Container id="AppNavBar-wrap">
           <Link to="/">
@@ -126,7 +132,7 @@ const AppNavBar = () => {
           </Collapse>
         </Container>
       </Navbar>
-    </Fragment>
+    </div>
   );
 };
 

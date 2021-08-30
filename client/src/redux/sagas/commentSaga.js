@@ -11,10 +11,12 @@ import {
 import { push } from "connected-react-router";
 
 // Load Comment
+
 const loadCommentsAPI = (payload) => {
   console.log(payload, "loadCommentAPI ID");
   return axios.get(`/api/post/${payload}/comments`);
 };
+
 function* loadComments(action) {
   try {
     const result = yield call(loadCommentsAPI, action.payload);
@@ -32,9 +34,11 @@ function* loadComments(action) {
     yield push("/");
   }
 }
+
 function* watchLoadComments() {
   yield takeEvery(COMMENT_LOADING_REQUEST, loadComments);
 }
+
 // UpLoad Comment
 
 const uploadCommentsAPI = (payload) => {
@@ -60,9 +64,11 @@ function* uploadComments(action) {
     yield push("/");
   }
 }
+
 function* watchUpLoadComments() {
   yield takeEvery(COMMENT_UPLOADING_REQUEST, uploadComments);
 }
+
 export default function* commentSaga() {
   yield all([fork(watchLoadComments), fork(watchUpLoadComments)]);
 }

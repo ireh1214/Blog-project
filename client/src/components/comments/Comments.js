@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   COMMENT_UPLOADING_REQUEST,
   COMMENT_LOADING_REQUEST,
+  COMMENT_DELETE_REQUEST,
 } from "../../redux/types";
 import { Form, FormGroup, Input, Button, Row } from "reactstrap";
 
@@ -51,21 +52,25 @@ const Comments = ({ id, userName, userId }) => {
     <>
       <Form onSubmit={onSubmit}>
         <FormGroup>
-          <Row className="p-2">
-            <div className="font-weight-bold m-1">코멘트 달기</div>
+          <Row className="p-3 m-3">
+        
             <div className="my-1" />
+            <div className="commentFlex mb-3">
             <Input
               innerRef={resetValue}
               type="textarea"
               name="contents"
               id="contents"
+              className="Comment"
               onChange={onChange}
-              placeholder="덧글을 입력하세요!"
+              size="2" 
+              maxlength="1200"
+              placeholder="지금 당신의 생각은?"
             />
-            <Button
-              className="mt-2 offset-md-10 col-md-2 p-3">
+            <Button>
              완료
             </Button>
+            </div>
           </Row>
         </FormGroup>
       </Form>

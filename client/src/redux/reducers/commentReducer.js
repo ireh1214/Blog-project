@@ -13,6 +13,7 @@ const initialState = {
   loading: false,
   isAuthenticated: false,
 };
+
 const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case COMMENT_LOADING_REQUEST:
@@ -43,7 +44,6 @@ const commentReducer = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       };
-    case COMMENT_LOADING_FAILURE:
     case COMMENT_UPLOADING_FAILURE:
       return {
         ...state,
@@ -53,4 +53,5 @@ const commentReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 export default commentReducer;

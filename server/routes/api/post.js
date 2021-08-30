@@ -1,16 +1,12 @@
 import express from "express";
-
 // Model
 import Post from "../../models/post";
 import User from "../../models/user";
 import Category from "../../models/category";
 import Comment from "../../models/comment";
-import "@babel/polyfill";
 import auth from "../../middleware/auth";
 import moment from "moment";
-
 const router = express.Router();
-
 import multer from "multer";
 import multerS3 from "multer-s3";
 import path from "path";
@@ -18,12 +14,10 @@ import AWS from "aws-sdk";
 import dotenv from "dotenv";
 import { isNullOrUndefined } from "util";
 dotenv.config();
-
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_KEY,
   secretAccessKey: process.env.AWS_PRIVATE_KEY,
 });
-
 const uploadS3 = multer({
   storage: multerS3({
     s3,
@@ -35,13 +29,11 @@ const uploadS3 = multer({
       cb(null, basename + new Date().valueOf() + ext);
     },
   }),
-  limits: { fileSize: 100 * 1024 * 1024 },
+  limits: { fileSize: 100 * 2024 * 2024 },
 });
-
 // @route     POST api/post/image
 // @desc      Create a Post
 // @access    Private
-
 router.post("/image", uploadS3.array("upload", 5), async (req, res, next) => {
   try {
     console.log(req.files.map((v) => v.location));
@@ -51,32 +43,17 @@ router.post("/image", uploadS3.array("upload", 5), async (req, res, next) => {
     res.json({ uploaded: false, url: null });
   }
 });
+// api/post
+router.get("/", async (req, res) => {
+  const postFindResult = await Post.find();
+const categoryFindResult = await Category.find();
+  const result = { postFindResult, categoryFindResult };
 
-//  @route    GET api/post
-//  @desc     More Loading Posts
-//  @access   public
-router.get("/skip/:skip", async (req, res) => {
-  try {
-    const postCount = await Post.countDocuments();
-    const postFindResult = await Post.find()
-      .skip(Number(req.params.skip))
-      .limit(6)
-      .sort({ date: -1 });
-
-    const categoryFindResult = await Category.find();
-    const result = { postFindResult, categoryFindResult, postCount };
-
-    res.json(result);
-  } catch (e) {
-    console.log(e);
-    res.json({ msg: "더 이상 포스트가 없네요!" });
-  }
+  res.json(result);
 });
-
 // @route    POST api/post
 // @desc     Create a Post
 // @access   Private
-
 router.post("/", auth, uploadS3.none(), async (req, res, next) => {
   try {
     console.log(req, "req");
@@ -86,15 +63,12 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
       contents,
       fileUrl,
       creator: req.user.id,
-      date: moment().format("YYYY-MM-DD hh:mm:ss"),
+      data: moment().format("YYYY-MM-DD hh:mm:ss"),
     });
-
     const findResult = await Category.findOne({
       categoryName: category,
     });
-
     console.log(findResult, "Find Result!!!!");
-
     if (isNullOrUndefined(findResult)) {
       const newCategory = await Category.create({
         categoryName: category,
@@ -128,11 +102,9 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
     console.log(e);
   }
 });
-
 // @route    POST api/post/:id
 // @desc     Detail Post
 // @access   Public
-
 router.get("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id)
@@ -147,13 +119,10 @@ router.get("/:id", async (req, res, next) => {
     next(e);
   }
 });
-
 // [Comments Route]
-
 // @route Get api/post/:id/comments
 // @desc  Get All Comments
 // @access public
-
 router.get("/:id/comments", async (req, res) => {
   try {
     const comment = await Post.findById(req.params.id).populate({
@@ -166,7 +135,6 @@ router.get("/:id/comments", async (req, res) => {
     console.log(e);
   }
 });
-
 router.post("/:id/comments", async (req, res, next) => {
   console.log(req, "comments");
   const newComment = await Comment.create({
@@ -177,7 +145,6 @@ router.post("/:id/comments", async (req, res, next) => {
     date: moment().format("YYYY-MM-DD hh:mm:ss"),
   });
   console.log(newComment, "newComment");
-
   try {
     await Post.findByIdAndUpdate(req.body.id, {
       $push: {
@@ -198,11 +165,9 @@ router.post("/:id/comments", async (req, res, next) => {
     next(e);
   }
 });
-
 // @route    Delete api/post/:id
 // @desc     Delete a Post
 // @access   Private
-
 router.delete("/:id", auth, async (req, res) => {
   await Post.deleteMany({ _id: req.params.id });
   await Comment.deleteMany({ post: req.params.id });
@@ -217,7 +182,6 @@ router.delete("/:id", auth, async (req, res) => {
     { $pull: { posts: req.params.id } },
     { new: true }
   );
-
   if (CategoryUpdateResult.posts.length === 0) {
     await Category.deleteMany({ _id: CategoryUpdateResult });
   }
@@ -254,7 +218,7 @@ router.post("/:id/edit", auth, async (req, res, next) => {
       { new: true }
     );
     console.log(modified_post, "edit modified");
-    res.redirect(`/api/post/${modified_post.id}`);
+   res.redirect(`/api/post/${modified_post.id}`);
   } catch (e) {
     console.log(e);
     next(e);

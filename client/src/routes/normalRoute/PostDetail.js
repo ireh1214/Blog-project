@@ -21,7 +21,10 @@ import {
 import { CKEditor } from "@ckeditor/ckeditor5-react"; // CKEditor 설정 변경됨
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
+import swal from 'sweetalert';
+
 import '../../assets/postDetail.scss';
+
 
 const PostDetail = (req) => {
   const dispatch = useDispatch();
@@ -43,7 +46,15 @@ const PostDetail = (req) => {
     });
   }, [dispatch, req.match.params.id]);
 
+
+
+
   const onDeleteClick = () => {
+    swal({
+ title: "포스팅이 삭제되었습니다!",
+  icon: "success",
+ timer: 3000,
+});
     dispatch({
       type: POST_DELETE_REQUEST,
       payload: {
@@ -56,13 +67,13 @@ const PostDetail = (req) => {
   const EditButton = (
     <div className="topCont">
       <Row>
-        <Col className="topContJr">
+        <Col>
           <Link
             to={`/post/${req.match.params.id}/edit`}>
             수정할래
           </Link>
         </Col>
-        <Col className="topContJr">
+        <Col>
           <span onClick={onDeleteClick}>
             삭제할래
           </span>
@@ -71,42 +82,33 @@ const PostDetail = (req) => {
     </div>
   );
 
-  const HomeButton = (
-    <Fragment>
-      <Row className="d-flex justify-content-center pb-3">
-        <Col className="col-sm-12 com-md-3">
-          <Link to="/" className="btn btn-primary btn-block">
-            Home
-          </Link>
-        </Col>
-      </Row>
-    </Fragment>
-  );
+ 
 
   const Body = (
     <>
-      {userId === creatorId ? EditButton : HomeButton}
       <Row className="TopButton">
         {(() => {
           if (postDetail && postDetail.creator) {
             return (
               <div id="postTop">
-                <div>
-                  <span className="mr-3">
+                <h3 classname="postTitle">
+                  {postDetail.title}
+                </h3>
+                <div className="postTopCont">
+                <div className="creator">{postDetail.creator.name} 
                     <Button>
                       {postDetail.category.categoryName}
                     </Button>
-                  </span>
-                  {postDetail.title}
                 </div>
-                <div className="creator">{postDetail.creator.name}</div>
+                <div> {userId === creatorId ? EditButton : null} </div>
+              </div>
               </div>
             );
           }
         })()}
       </Row>
       {postDetail && postDetail.comments ? (
-        <Fragment>
+        <div className="PostDetail">
           <div className="rightCont">
             <FontAwesomeIcon icon={faPencilAlt} />
             &nbsp;
@@ -127,30 +129,31 @@ const PostDetail = (req) => {
             data={postDetail.contents}
             config={editorConfiguration}
             disabled="true"
+            toolbar = "false"
             />
           </Row>
           <Row>
-            <Container className="mb-3 border border-blue rounded">
+            <Container>
               {Array.isArray(comments)
                 ? comments.map(
                     ({ contents, creator, date, _id, creatorName }) => (
                       <div key={_id}>
-                        <Row className="justify-content-between p-2">
-                          <div className="font-weight-bold">
+                        <div className="creatorCont">
+                          <div className="creatorName">
                             {creatorName ? creatorName : creator}
                           </div>
-                          <div className="text-small">
-                            <span className="font-weight-bold">
+                          <div className="creatorDate">
+                            <span>
                               {date.split(" ")[0]}
                             </span>
-                            <span className="font-weight-light">
+                            <span>
                               {" "}
                               {date.split(" ")[1]}
                             </span>
                           </div>
-                        </Row>
-                        <Row className="p-2">
-                          <div>{contents}</div>
+                        </div>
+                        <Row className="pb-1 pt-3 commentW">
+                          <pre className="commentWidth">{contents}</pre>
                         </Row>
                         <hr />
                       </div>
@@ -164,7 +167,7 @@ const PostDetail = (req) => {
               />
             </Container>
           </Row>
-        </Fragment>
+        </div>
       ) : (
         <h1>hi</h1>
       )}

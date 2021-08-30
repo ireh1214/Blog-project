@@ -75,18 +75,16 @@
 * {
   font-family: "Noto Sans KR", sans-serif;
   text-decoration: none !important;
+  focus: none !important;
 }
 
 #main-footer {
+  height:100px;
   font-weight: 100;
   background: #eee;
   color: #333;
   font-size: 13px;
-  line-height: 4;
-}
-
-#main-footer p {
-  margin-top: 10px;
+  line-height: 8;
 }
 
 #page-header {
@@ -115,6 +113,19 @@
   left: 39%;
 }
 
+.logoutBtn{
+  background: #fff !important;
+    padding: 2px 6px;
+    color:#333 !important;
+    font-size:12px;
+    border:1px solid #ccc !important;
+    border-radius:5px;
+}
+
+.logoutBtnForm{
+  margin:13px 0;
+}
+
 .WelcomeBtn {
   font-size: 16px;
   color: #333;
@@ -135,6 +146,7 @@
   position: relative;
   right: 9px;
   bottom: 2px;
+
 }
 
 .WriteBtn:hover {
@@ -144,12 +156,38 @@
 }
 
 #main-body {
-  min-width: 90vh;
+  min-width: 100vh;
+}
+
+#AppNavBar{
+  background:#fff;
+// box-shadow: 10px 5px 5px #eee;
 }
 
 .PostCard {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(196, 151, 151, 0.01);
 }
+
+.PostCardOne{
+  display:flex;
+  flex-direction:row;
+ justify-content:space-between;
+}
+
+.cardTitle{
+  font-size:18px;
+  margin: 0px 0px 18px;
+}
+
+.cardCont{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  margin:4px;
+  padding:4px;
+}
+
+
 
 .card-img-top {
   width: 100%;
@@ -182,7 +220,6 @@
 }
 
 .ck-editor__editable {
-  max-height: 43rem;
   min-height: 30rem;
 }
 
@@ -220,9 +257,77 @@
   }
 }
 
-textarea {
-  resize: none;
+.Comment{
+  border:1px solid #333;
+  border-radius:0;
 }
+
+.commentFlex{
+  display:flex;
+  flex-decoration:row;
+}
+
+.commentFlex Input:focus{
+  outline:none;
+}
+
+.commentFlex button{
+  border-radius:0;
+  background:#fff;
+  width:100px;
+  height:100%;
+  margin:0;
+  padding:0;
+  border: 1px solid #333;
+  font-size:16px;
+  color:#333;
+}
+
+.commentWrap{
+  margin:8px 0 100px;
+  border: solid #fff;
+
+}
+
+
+.CategoryResult{
+  width:800px;
+  margin: 50px auto;
+}
+
+.CategoryResultCont{
+  font-size:16px;
+  text-align: center;
+  color:#333;
+  margin: 0px 0px 50px;
+}
+
+.CategoryResultCont span{
+  color: #000;
+  margin: 16px 8px 16px 0;
+  line-height:2;
+  font-size:20px;
+}
+.CategoryCont{
+  padding: 16px 0;
+}
+
+.CategoryCont Button{
+padding:8px 16px;
+font-size:14px;
+background:#000;
+}
+
+.CategoryCont Button:hover{
+  opadity:1;
+  background:blue;
+     -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+
+
 
 @media all and (min-width: 320px) and (max-width: 768px) {
 

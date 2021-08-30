@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { Row, Alert } from "reactstrap";
 import GrowingSpinner from "../../components/spinner/Spinner";
 import PostCardOne from "../../components/post/PostCardOne";
-// import Category from "../../components/post/Category";
+import Category from "../../components/post/Category";
 
 const PostCardList = () => {
   const { posts, categoryFindResult, loading, postCount } = useSelector(
@@ -74,11 +74,9 @@ const PostCardList = () => {
   return (
     <Fragment>
       <Helmet title="Home" />
-
-      {/* <Row className="border-bottom border-top border-primary py-2 mb-3 ">
+      <div className="CategoryCont">
         <Category posts={categoryFindResult} />
-      </Row> */}
-
+        </div>
       <Row>{posts ? <PostCardOne posts={posts} /> : GrowingSpinner}</Row>
 
       <div ref={lastPostElementRef}>{loading && GrowingSpinner}</div>
@@ -86,8 +84,8 @@ const PostCardList = () => {
         ""
       ) : endMsg ? (
         <div>
-          <Alert color="danger" className="text-center font-weight-bolder">
-            더 이상의 포스트는 없습니다
+          <Alert color="white" className="text-center font-weight-bolder m-3 p-1">
+         포스트 끝!
           </Alert>
         </div>
       ) : (

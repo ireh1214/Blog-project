@@ -21,14 +21,15 @@ a.btn-block{
 
 #postTop{
     display:flex;
-    flex-decoration:row;
+    flex-direction:column;
     align-item: center;
     justify-content:space-between;
 }
 
-#postTop div{
-    font-size:18px;
+#postTop .postTitle{
+    font-size:30px;
     line-height:1.7;
+    margin:16px 0;
 }
 
 #postTop div:nth-child(1){
@@ -42,8 +43,32 @@ a.btn-block{
 
 .TopButton{
     border-bottom: 1px solid #ddd;
-      border-top: 1px solid #ddd;
       padding:8px;
+}
+
+.postTopCont{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin:16px 0 10px;
+}
+
+.postTopCont span, a{
+    font-size:12px;
+    color:#333;
+}
+
+.creator{
+font-size:14px;
+}
+
+.creator Button{
+    background:#fff;
+    padding: 2px 6px;
+    color:#333;
+    font-size:12px;
+    border:1px solid #ddd;
+    border-radius:0;
 }
 
 // 오른쪽에 날짜 코멘트 조회수 잇는거임
@@ -54,15 +79,83 @@ a.btn-block{
     font-size:12px;
     text-align:right;
 }
-.topCont{
-    padding:20px 0 8px 0;
-    display:flex;
-    width:800px;
-    position:relative;
-    left:710px;
+
+.ck {
+  .ck-editor {
+      margin:0;
+      padding:0;
+  }
+
+.ck-editor__editable {
+    margin:0;
+      padding:0 4px;
+      width:100%;
+}
 }
 
-.topCont .topContJr{
-color:#1071f8;
-width: 80px;
+.PostDetail .ck{
+.ck-toolbar{
+    display:none;
+}
+
+.ck-editor__editable {
+border: none;
+    margin:40px 0 80px;
+      padding:0 4px;
+      width:920px;
+      min-height:160px;
+}
+}
+
+.PostDetail:focus{
+    outline:none;
+}
+
+.PostDetail{
+    margin-top:8px;
+}
+
+
+.creatorCont{
+    width:91%;
+    margin: 0 auto;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    padding-top:14px;
+}
+
+ 
+.creatorName{
+    font-size:16px;
+    font-weight:500;
+}
+
+.creatorDate{
+    color:#ccc;
+}
+
+.creatorDate span:nth-child(1){
+    color:#333;
+}
+
+div hr{
+    width:91%;
+    margin: 0 auto;
+    border: 1px solid #aaa;
+}
+
+.commentW{
+    width:90%;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.commentWidth{
+    width:100%;
+    font-size:14px;
+letter-spacing:-0.6px;
+
+// word-spacing:
+
 }
