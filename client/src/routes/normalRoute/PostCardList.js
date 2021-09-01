@@ -67,7 +67,7 @@ const PostCardList = () => {
 
   ////////////////////////////////////////
   const [lastPostElementRef, visible] = useOnScreen({
-    threshold: "0.5",
+    threshold: "0.9",
   });
   console.log(visible, "visible", skipNumberRef.current, "skipNum");
 

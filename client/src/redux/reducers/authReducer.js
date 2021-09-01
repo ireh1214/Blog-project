@@ -14,6 +14,9 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+   PASSWORD_EDIT_UPLOADING_REQUEST,
+  PASSWORD_EDIT_UPLOADING_SUCCESS,
+  PASSWORD_EDIT_UPLOADING_FAILURE,
 } from "../types";
 
 // initialState. 가장 초기값을 의미한다.
@@ -31,6 +34,7 @@ const initialState = {
   userRole: "",
   errerMsg: "",
   successMsg: "",
+    previousMatchMsg: "",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -84,21 +88,7 @@ const authReducer = (state = initialState, action) => {
         errorMsg: "",
       };
 
-    case CLEAR_ERROR_REQUEST:
-      return {
-        ...state,
-        errorMsg: null,
-      };
-    case CLEAR_ERROR_SUCCESS:
-      return {
-        ...state,
-        errorMsg: null,
-      };
-    case CLEAR_ERROR_FAILURE:
-      return {
-        ...state,
-        errorMsg: null,
-      };
+    
 
     case USER_LOADING_REQUEST:
       return {
@@ -123,6 +113,46 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         userRole: "",
       };
+
+case PASSWORD_EDIT_UPLOADING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case PASSWORD_EDIT_UPLOADING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        successMsg: action.payload.data.success_msg,
+        errorMsg: "",
+        previousMsg: "",
+      };
+    case PASSWORD_EDIT_UPLOADING_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        successMsg: "",
+        errorMsg: action.payload.fail_msg,
+        previousMatchMsg: action.payload.match_msg,
+      };
+    case CLEAR_ERROR_REQUEST:
+      return {
+        ...state,
+      };
+    case CLEAR_ERROR_SUCCESS:
+      return {
+        ...state,
+        errorMsg: "",
+        previousMatchMsg: "",
+      };
+    case CLEAR_ERROR_FAILURE:
+      return {
+        ...state,
+        errorMsg: "Clear Error Fail",
+        previousMatchMsg: "Clear Error Fail",
+      };
+
+
 
     default:
       return state;

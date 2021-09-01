@@ -7,11 +7,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import PostCardList from "./normalRoute/PostCardList";
 import PostWrite from "./normalRoute/PostWrite";
 import PostDetail from "./normalRoute/PostDetail";
-// import Search from "./normalRoute/Search";
+import Search from "./normalRoute/Search";
 
 import PostEdit from "./normalRoute/PostEdit";
 import CategoryResult from "./normalRoute/CategoryResult";
-// import Profile from "./normalRoute/Profile";
+import Profile from "./normalRoute/Profile";
 import {
   EditProtectedRoute,
   ProfileProtectedRoute,
@@ -32,8 +32,12 @@ const MyRouter = () => (
           exact
           component={CategoryResult}
         />
-        {/* <Route path="/search/:searchTerm" exact component={Search} /> */}
-
+        <Route path="/search/:searchTerm" exact component={Search} />
+  <ProfileProtectedRoute
+          path="/user/:userName/profile"
+          exact
+          component={Profile}
+        />
         <Redirect from="*" to="/" />
       </Switch>
     </Container>

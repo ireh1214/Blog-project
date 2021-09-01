@@ -16,6 +16,8 @@ import { LOGOUT_REQUEST } from "../redux/types";
 import { useSelector, useDispatch } from "react-redux";
 import PetsIcon from "@material-ui/icons/Pets";
 import BrushIcon from '@material-ui/icons/Brush';
+import SearchInput from "./search/searchInput";
+
 
 const AppNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +98,12 @@ const AppNavBar = () => {
           )}
         </Form>
       </NavItem>
-      <NavItem>
+      <NavItem className="NavInput">
+        <SearchInput isOpen={isOpen} />
+      </NavItem>
+
+<div className="NavIWrap">
+  <NavItem>
         <Form className="col logoutBtnForm">
           <Link onClick={onLogout} to="#">
             <Button className="logoutBtn">
@@ -105,6 +112,33 @@ const AppNavBar = () => {
           </Link>
         </Form>
       </NavItem>
+      
+      <NavItem className="NavI">
+        <Link>
+         HOME
+        </Link>
+      </NavItem>
+
+      <NavItem className="NavI">
+        <Link>
+         BLOG
+        </Link>
+      </NavItem>
+
+
+      <NavItem className="NavI">
+        <Link>
+         VERSION
+        </Link>
+      </NavItem>
+
+
+      <NavItem className="NavI">
+        <Link>
+         DEV
+        </Link>
+      </NavItem>
+</div>
     </Fragment>
   );
 
@@ -129,6 +163,8 @@ const AppNavBar = () => {
           <NavbarToggler onClick={handleToggle} />
           <Collapse isOpen={isOpen} navbar id="AppNavBar-Button">
             <Nav navbar>{isAuthenticated ? authLink : guestLink}</Nav>
+     
+
           </Collapse>
         </Container>
       </Navbar>

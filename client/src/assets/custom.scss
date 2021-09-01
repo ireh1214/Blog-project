@@ -150,9 +150,35 @@
 }
 
 .WriteBtn:hover {
-  background-color: blue;
+  background-color: black;
   color: #fff;
   transition: 0.7s all;
+}
+
+.NavInput{
+  margin-top:6px;
+}
+
+.NavI{
+
+  width:70px;
+text-align:center;
+}
+
+.NavI a{
+  color:#333;
+  font-size:16px;
+  line-height:3;
+}
+
+.NavIWrap{
+  display:flex;
+  width:400px;
+  position:absolute;
+  right:15%;
+  margin: 0 auto;
+  align-item:right;
+  justify-content: center;
 }
 
 #main-body {
@@ -309,24 +335,43 @@
   font-size:20px;
 }
 .CategoryCont{
-  padding: 16px 0;
+  padding: 4px 0 16px;
+  width:100%;
 }
 
 .CategoryCont Button{
-padding:8px 16px;
+padding:4px 8px;
 font-size:14px;
-background:#000;
+background:#fff;
+color:#aaa;
+border: 1px solid #ccc;
+margin:0px 4px;
 }
 
 .CategoryCont Button:hover{
-  opadity:1;
-  background:blue;
-     -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+  color:#000;
+  background:#fff;
 }
 
 
+.searchInput{
+  width:136px;
+  margin-left:16px;
+    transition: 0.4s all;
+    display: flex;
+    align-item:center;
+    
+}
+.searchInput:focus{
+  border: 1px solid #000;
+  width:280px;
+}
+
+
+.Search{
+  width:800px;
+  margin: 40px auto;
+}
 
 
 @media all and (min-width: 320px) and (max-width: 768px) {
